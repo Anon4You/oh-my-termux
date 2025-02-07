@@ -5,7 +5,7 @@ end
 set fish_username OhMyTermux
 
 function fish_greeting
-  printf "\e[33mWelcom back to termux >>\e[31;1m $fish_username\e[0;1m
+  printf "\e[36mWelcom back to termux >>\e[31;1m $fish_username\e[0;1m
 
    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠟⠛⠛⠛⠛⠛⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀   ⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠙⠷⣄⠀⠀⠀⠀⠀⠀⠀⠀
