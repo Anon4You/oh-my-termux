@@ -53,7 +53,7 @@ depends(){
   printf "${cyan}[*] Installing required packages...${reset}"
   for i in fish starship git eza; do 
     if hash ${i} > /dev/null 2>&1; then
-      printf "${green}[*] ${i} is OK..${reset}"
+      printf "${green}[*] $i is OK...${reset}"
     else
       printf "${red}[!] ${i} not found...\n${yellow}[+] Installing ${i}...${reset}"
       apt install ${i} -y || {
