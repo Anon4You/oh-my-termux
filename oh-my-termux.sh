@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 # oh-my-termux
 # Version    : 1.0
-# Description: Make your terminal interactive with auto-suggestion, syntax-highlighting and your own banner!
+# Description: Make your termux interactive with auto-suggestion, syntax-highlighting and your own banner!
 # Author     : Alienkrishn [Anon4You]
 # Github     : https://github.com/Anon4You
 # Email      : Alienkrishn@gmail.co.
@@ -11,7 +12,7 @@
 # variables 
 
 default_usr="OhMyTermux"
-fish_config="~/.config/fish/config.fish"
+fish_config="$HOME/.config/fish/config.fish"
 
 
 
@@ -69,7 +70,7 @@ depends(){
 }
 
 
-# mai func 
+# main function 
 
 main(){
   clear
@@ -94,7 +95,7 @@ main(){
   if [[ ! -d ~/.config/fish/ ]]; then
     mkdir -p ~/.config/fish 
   fi
-  cat oh-my-termux/assets/config.fish | sed s/"OhMyTermux"/"$name"/g > ${fish_config}
+  cat oh-my-termux/assets/config.fish | sed s/"OhMyTermux"/"$usrname"/g > $fish_config
   mv oh-my-termux/assets/starship.toml ~/.config/ 
   mv oh-my-termux/assets/colors.properties ~/.termux/ 
   mv oh-my-termux/assets/font.ttf ~/.termux/
