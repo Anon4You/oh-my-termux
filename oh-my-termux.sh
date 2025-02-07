@@ -79,6 +79,7 @@ main(){
   else
     usrname=${name}
   fi 
+  depends
 
 
   # Changing shell to fish 
