@@ -48,6 +48,9 @@ printf "${yellow}
 depends(){
   printf "${cyan}[*] Updating termux repositoris..${reset}"
   apt update -y &> /dev/null
+  
+  printf "${pink}== Downloading required files...${reset}"
+  git clone --quiet https://github.com/Anon4You/oh-my-termux.git
 
   printf "${cyan}[*] Installing required packages...${reset}"
   for i in fish starship git eza; do 
@@ -55,9 +58,7 @@ depends(){
       printf "${green}[*] {i} is OK..${reset}"
     else
       printf "${red}[!] ${i} not found...\n${yellow}[+] Installing ${i}...${reset}"
-      apt install ${i} -y
-      printf "${pink}== Downloading required files...${reset}"
-      git clone --quiet https://github.com/Anon4You/oh-my-termux.git || {
+      apt install ${i} -y || {
         printf "${red}[!] Something wenn wrong!, Aborting...${reset}"
         sleep 2
         exit 1
