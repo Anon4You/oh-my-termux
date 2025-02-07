@@ -41,9 +41,9 @@ alias .5='cd ../../../../..'
 
 # Changing "ls" to "eza"
 alias la='eza -al --color=always --group-directories-first' # my preferred listing
-alias ls='eza --color=always --group-directories-first'  # all files and dirs
+alias ls='eza -a --color=always --group-directories-first'  # all files and dirs
 alias ll='eza -l --color=always --group-directories-first'  # long format
-alias lt='eza -a --color=always --group-directories-first' # tree listing
+alias lh='eza -alh --color=always --group-directories-first' # tree listing
 #alias l.='eza -a | grep -E "^\."
 
 starship init fish | source
