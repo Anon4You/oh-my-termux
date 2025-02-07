@@ -19,7 +19,7 @@ fish_config="$HOME/.config/fish/config.fish"
 # color variables
 
 red="\e[31m" green="\e[32m" yellow="\e[33m"
-blue="\e[34m" pink="\e[35" cyan="\e[36m"
+blue="\e[34m" pink="\e[35m" cyan="\e[36m"
 white="\e[37m" black="\e[30m" reset="\e[0m\n"
 filred="\e[41;1m"
 
@@ -49,9 +49,6 @@ printf "${yellow}
 depends(){
   printf "${cyan}[*] Updating termux repositoris..${reset}"
   apt update -y &> /dev/null
-  
-  printf "${pink}== Downloading required files...${reset}"
-  git clone --quiet https://github.com/Anon4You/oh-my-termux.git
 
   printf "${cyan}[*] Installing required packages...${reset}"
   for i in fish starship git eza; do 
@@ -66,6 +63,8 @@ depends(){
       }
     fi
   done
+  printf "${pink}== Downloading required files...${reset}"
+  git clone --quiet https://github.com/Anon4You/oh-my-termux.git
   
 }
 
