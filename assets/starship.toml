@@ -1,87 +1,321 @@
-# # Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
+# ~/.config/starship.toml
 
+# Disable the blank line at the start of the prompt
+add_newline = false
 
-add_newline = true
+format = """
+[╭─](white)\
+$username\
+[](turquoise)\
+$hostname\
+[-](white)\
+$directory\
+$git_branch\
+$git_status\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$container\
+$line_break\
+[╰─](white)\
+$sudo\
+$character\
+"""
 
-format = """$time $all"""
+right_format="""
+$cmd_duration\
+$status\
+$time\
+"""
 
-[character]
-success_symbol = "[╰┈➤](bold green)"
-error_symbol = "[╰┈➤](red)"
+command_timeout = 1000
 
-[git_branch]
-symbol = "🌱 "
-truncation_length = 4
-truncation_symbol = ""
-# ignore_branches = ["master", "main"]
-format = "[](fg:#ffffff bg:none)[🌱](fg:#282c34 bg:#ffffff)[](fg:#ffffff bg:#24c90a)[ $branch]($style)[](fg:#24c90a bg:none) "
-style = "fg:#ffffff bg:#24c90a"
+palette = "main"
 
-[git_commit]
-commit_hash_length = 4
-tag_symbol = "🔖 "
-format = "[\\($hash\\)]($style) [\\($tag\\)]($style)"
-style = "green"
+# Replace the "❯" symbol in the prompt with "➜"
+[character] # The name of the module we are configuring is "character"
+success_symbol = "[❯](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[✘](bold red)"
 
-[git_status]
-format="[](fg:#ffffff bg:none)[🥶](fg:#282c34 bg:#ffffff)[ ](fg:#ffffff bg:#4da0ff)[$modified](fg:#282c34 bg:#4da0ff)[$untracked](fg:#282c34 bg:#4da0ff)[$staged](fg:#282c34 bg:#4da0ff)[$renamed](fg:#282c34 bg:#4da0ff)[](fg:#4da0ff bg:none)"
-conflicted = ""
-ahead = "🏎💨"
-behind = "😰"
-diverged = "😵"
-up_to_date = "🥰"
-untracked = "🤷"
-stashed = "📦"
-modified = "📝"
-renamed = "👅"
-deleted = "🗑️"
-style = "red"
-disabled = false
-
-# [git_state]
-# rebase = "REBASING"
-# merge =	"MERGING"
-# revert = "REVERTING"
-# cherry_pick = "CHERRY-PICKING"
-# bisect = "BISECTING"
-# am = "AM"
-# am_or_rebase = "AM/REBASE"
-# style =	"yellow"
-# format = '\([$state( $progress_current/$progress_total)]($style)\) '
-# disabled = true
-
+[cmd_duration]
+format = '\[[⏱ $duration]($style)\]'
 
 [directory]
-format = "[](fg:#ffffff bg:none)[⾕](fg:#282c34 bg:#ffffff)[](fg:#ffffff bg:#1c420b)[ $path]($style)[](fg:#1c420b bg:none) "
-style = "fg:#ffffff bg:#1c420b"
+style = "fg:limegreen"
+format = '\[[$path]($style)\]'
 truncation_length = 3
-truncate_to_repo=false
-home_symbol = ""
+truncation_symbol = "…/"
 
-[nodejs]
-symbol = "🤖 "
-disabled = true
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
 
-[package] 
-symbol = "📦 "
-disabled = true
+[git_branch]
+format = '-\[[$symbol$branch]($style)'
 
-[python]
-symbol = "🐍 "
+[git_status]
+stashed = '\$'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+conflicted = '='
+deleted = '✘'
+renamed = '»'
+modified = '!'
+staged = '+'
+untracked = '?'
+format = '([ $all_status$ahead_behind]($style))\]'
 
-[rust]
-symbol = "🦀 "
+[hostname]
+ssh_only = false
+trim_at = ".companyname.com"
+disabled = false
+style = "fg:orange"
+format = '[]($style)\)'
+
+[palettes.main]
+hotpink = "#DF005F"
+orange = "#DF5F00"
+turquoise = "#5FDFFF"
+limegreen = "#87FF00"
+
+[status]
+format = '[\[$symbol$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false
+
+[sudo]
+disabled = false
+format = '[$symbol]($style)'
 
 [time]
 disabled = false
-format="[](fg:#ffffff bg:none)[ⴵ](fg:#282c34 bg:#ffffff)[](fg:#ffffff bg:#2d0de0)[ $time]($style)[](fg:#2d0de0 bg:none)"
-time_format = "%T" #change to %R to only have HH:MM
-style="fg:#ffffff bg:#2d0de0"
+use_12hr = true
+utc_time_offset = "6"
+#time_format = "%r" # Hour:Minute Format
+style = "fg:#33658A"
+format = '[ ♥ $time ]($style)'
 
- #[custom.emoji]
- #description = "Displays a (pseudo) random emoji for each prompt"
- #command = "EMOJIS=(⛵️ 🛰 🪐 🚀 🧡 🔭 🌍 💫 ☄️ ✨ 🌠 🌌 ⭐️); EMOJI_INDEX=$(( $RANDOM % 12 + 0 )); echo ${EMOJIS[$EMOJI_INDEX]}"
- #when = "1"
- #shell = ["cmd /C"]
- #format = "$output"
+[username]
+show_always = true
+style_user = "fg:bold green"
+style_root = "fg:red"
+format = '\([Termux]($style)'
+
+
+# Symbols
+[aws]
+format = '-\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+
+[bun]
+format = '-\[[$symbol($version)]($style)\]'
+
+[c]
+format = '-\[[$symbol($version(-$name))]($style)\]'
+
+[cmake]
+format = '-\[[$symbol($version)]($style)\]'
+
+[cobol]
+format = '-\[[$symbol($version)]($style)\]'
+
+[conda]
+format = '-\[[$symbol$environment]($style)\]'
+
+[crystal]
+format = '-\[[$symbol($version)]($style)\]'
+
+[daml]
+format = '-\[[$symbol($version)]($style)\]'
+
+[dart]
+format = '-\[[$symbol($version)]($style)\]'
+
+[deno]
+format = '-\[[$symbol($version)]($style)\]'
+
+[docker_context]
+format = '-\[[$symbol$context]($style)\]'
+
+[dotnet]
+format = '-\[[$symbol($version)(🎯 $tfm)]($style)\]'
+
+[elixir]
+format = '-\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+
+[elm]
+format = '-\[[$symbol($version)]($style)\]'
+
+[erlang]
+format = '-\[[$symbol($version)]($style)\]'
+
+[gcloud]
+format = '-\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+
+#[git_branch]
+#format = '\[[$symbol$branch]($style)\]'
+
+#[git_status]
+#format = '([\[$all_status$ahead_behind\]]($style))'
+
+[golang]
+format = '-\[[$symbol($version)]($style)\]'
+
+[haskell]
+format = '-\[[$symbol($version)]($style)\]'
+
+[helm]
+format = '-\[[$symbol($version)]($style)\]'
+
+[hg_branch]
+format = '-\[[$symbol$branch]($style)\]'
+
+[java]
+format = '-\[[$symbol($version)]($style)\]'
+
+[julia]
+format = '-\[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = '-\[[$symbol($version)]($style)\]'
+
+[kubernetes]
+format = '-\[[$symbol$context( \($namespace\))]($style)\]'
+
+[lua]
+format = '-\[[$symbol($version)]($style)\]'
+
+[memory_usage]
+format = '-\[$symbol[$ram( | $swap)]($style)\]'
+
+[meson]
+format = '-\[[$symbol$project]($style)\]'
+
+[nim]
+format = '-\[[$symbol($version)]($style)\]'
+
+[nix_shell]
+format = '-\[[$symbol$state( \($name\))]($style)\]'
+
+[nodejs]
+format = '-\[[$symbol($version)]($style)\]'
+
+[ocaml]
+format = '-\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+
+[openstack]
+format = '-\[[$symbol$cloud(\($project\))]($style)\]'
+
+[package]
+format = '-\[[$symbol$version]($style)\]'
+
+[perl]
+format = '-\[[$symbol($version)]($style)\]'
+
+[php]
+format = '-\[[$symbol($version)]($style)\]'
+
+[pulumi]
+format = '-\[[$symbol$stack]($style)\]'
+
+[purescript]
+format = '-\[[$symbol($version)]($style)\]'
+
+[python]
+format = '-\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+
+[raku]
+format = '-\[[$symbol($version-$vm_version)]($style)\]'
+
+[red]
+format = '-\[[$symbol($version)]($style)\]'
+
+[ruby]
+format = '-\[[$symbol($version)]($style)\]'
+
+[rust]
+format = '-\[[$symbol($version)]($style)\]'
+
+[scala]
+format = '-\[[$symbol($version)]($style)\]'
+
+[spack]
+format = '-\[[$symbol$environment]($style)\]'
+
+#[sudo]
+#format = '\[[as $symbol]\]'
+
+[swift]
+format = '-\[[$symbol($version)]($style)\]'
+
+[terraform]
+format = '-\[[$symbol$workspace]($style)\]'
+
+#[time]
+#format = '\[[$time]($style)\]'
+
+#[username]
+#format = '\[[$user]($style)\]'
+
+[vagrant]
+format = '-\[[$symbol($version)]($style)\]'
+
+[vlang]
+format = '-\[[$symbol($version)]($style)\]'
+
+[zig]
+format = '-\[[$symbol($version)]($style)\]'

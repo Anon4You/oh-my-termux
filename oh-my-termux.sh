@@ -9,11 +9,6 @@
 # If you copy, consider giving credit! We keep our code open source to help others
 #
 
-# variables 
-
-default_usr="OhMyTermux"
-fish_config="$HOME/.config/fish/config.fish"
-
 
 
 # color variables
@@ -74,13 +69,12 @@ depends(){
 main(){
   clear
   banner
-  read -p $'\e[35m'"Enter your name for banner: "$'\e[36m' name
-  if [[ -z ${name} ]]; then
-    usrname=${default_usr}
+  read -p "Install oh-my-termux [Y/n] " chs 
+  if [[ $chs == n ]]; then
+    exit 0 
   else
-    usrname=${name}
-  fi 
-  depends
+    depends
+  fi
 
 
   # Changing shell to fish 
@@ -94,7 +88,7 @@ main(){
   if [[ ! -d ~/.config/fish/ ]]; then
     mkdir -p ~/.config/fish 
   fi
-  cat oh-my-termux/assets/config.fish | sed s/"OhMyTermux"/"$usrname"/g > $fish_config
+  mv oh-my-termux/assets/config.fish ~/.config/fish/
   mv oh-my-termux/assets/starship.toml ~/.config/ 
   mv oh-my-termux/assets/colors.properties ~/.termux/ 
   mv oh-my-termux/assets/font.ttf ~/.termux/
