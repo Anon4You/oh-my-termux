@@ -97,7 +97,6 @@ main(){
   apt clean 
   rm -rf oh-my-termux
   rm -rf oh-my-termux.sh
-  rm -rf $PREFIX/etc/motd &> /dev/null
 
   printf "${white}${0} setup complete...restart your termux to see efects..."
 }
